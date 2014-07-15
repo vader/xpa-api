@@ -1,0 +1,253 @@
+FORMAT: 1A
+HOST: http://www.google.com
+
+# XPAUSER
+XPA Mobile User API is an *api allowing users to register and log into XPA* 
+
+# Group User API
+Notes related resources of the **XPA Mobile User API**
+Users have to log into the API using either OAuth2 (Google) or Username and Password. As part of the response the cookie file is returend. The cookie contains the session id with the cookie id. 
+
+## XPA registration using username and password [/mobile/register]
+### Register a new user with XPA using Username and Password [PUT]
+
+This resource has the following attributes
+
+- `email` The email address of the user. Signup will be rejected if an existing user record with a matching email address is found
+- `firstName` The first name of the user
+- `lastName` The surname of the user
+- `password` The password used to authenticate the user. The password must be at least 8 characters long and contain at least 2 digits
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `cc` (Optional) The country code E.g GB TODO provide a call for all country codes
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `distance` (Optional) Units for distance MILES, KILOMETERS
+- `time` (Optional) Units for time DAY HOUR MINUTES
+- `taxName` (Optional) Name of the tax, e.g vat or gst 
+- `taxPercentage` (Optional) ercentage of the tax numeric so 20% will be 20
+
+The 409 response is returned if a user with a matching email address already exists. 
+
+
+Curl example: 
+
+
+`curl-i -c cookies.txt -k --insecure -X PUT -H "Content-Type: application/json" -d '{"firstName":"Darth","lastName":"Vader","email":"admin@adis-ltd.co.uk", "password":"password123", "ccy":"GBP","cc":"GB","distance":"kilometers","time":"day","tax":"vat", "taxPercentage":"20"}' https://hikalu.com/mobile/register`
+
++ Request (application/json)
+
+        {
+            "firstName": "Darth",
+            "lastName": "Vader",
+            "email": "admin@adis-ltd.co.uk",
+            "password": "password123",
+            "ccy": "GBP",
+            "cc": "GB",
+            "distance": "kilometers",
+            "time": "day",
+            "tax": "vat",
+            "taxPercentage": "20"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message":"Successfully registered user admin@adis-ltd.co.uk",
+            "id":21,
+            "session":"e81aca03e0decf8174c166265a0afe602e99b8f19057970fa6a03c191b628c7a1f0991c52d3b04a07a1c937019f46d68ccd3787240b52f54768db5969a4b9cfb768f7c3c78359af4e56779b640ebc86cbe1a373cd79524f3"
+        }
+        
++ Response 409
+
+        {
+            "message" : "The email address mickey@disney.com is already registered. You may try a different email address."
+        }
+        
+## Login using username and password [/mobile/login/userpass]
+Logout for all users 
+
+Curl Example:
+
+`curl -c cookies.txt -k --insecure -X POST  -H "Content-Type: application/json" -d  '{"username":"admin@adis-ltd.co.uk", "password":"password123"}'   https://hikalu.com/mobile/login/userpass`
+
+
+### Login using username and password [POST]
+
++ Request
+    
+        {
+            {"username":"admin@adis-ltd.co.uk", "password":"password123"}'
+        }
+    
++ Response 200 (application/json)
+
+  
+    + Body
+
+            {
+                "session":"1db43880c3e4dad3c28f2e695e309191c409925eabebfaaf54c527f08fe21c26cd0ef9d665cab57ee97d7cc2612b526b5e4f68b831421bf08ab3259587ad1f3d46961a03c5bb375b958bc19e6d2e10b99103707a77e0c8d5"
+            }
+            
+    + Response 400 (application/json)
+    
+            {
+                "message": "Invalid Credentials"
+            }
+
+
+        
+
+## User login using Google Oauth 2 [/authenticateMobile/google]
+Login a user with OAuth2 using google. 
+Firstly you need to get the token from Google. This is only valid if you have already registered using google OAuth2 (Not sure yet how the mobile client is going to perform this? ) 
+
+This resource has the following attributes
+
+- `accessToken` The token retreived from google or the OAuth2 provider 
+
+Curl Example:
+
+`curl -c cookies.txt -k --insecure -X POST -H "Accept: Application/json" -H "Content-Type: application/json" https://hikalu.com/authenticateMobile/google -d '{"accessToken":"ya29.IwC-wm_3l7zbDxoAAADtR3LL47wt4zYLmOoliwJiB9_bUAkcG0RdK-a9ZrCLVg"}' | grep }| python -mjson.tool`
+
+
+If it does not authenticate and you get some json error message it means the authentication is wrong. Double check that your access token is correct. Restart memcached and delete all cookies, then re login and get the value out of the database which is sent from Google
+
+
+### Login using Google OAuth2 [POST]
+
++ Request
+
+            {
+                "accessToken":"ya29.QwAj-1XHJe_ssiEAAABF-OQTIt0rwGsUaymqZSKOjgu1iN9iNslGLpV3QAxGcf0yHeHbUmHkIgyzYVagkDI"
+            }   
+    
++ Response 200 (application/json)
+
+    + Header
+
+            Set-Cookie: xpa-dev=7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59; Expires=Tue, 15 Jul 2014 21:58:57 GMT; Path=/; Secure; HTTPOnly
+
+    + Body
+
+            {
+                "sessionId": "7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59"
+            }
+            
+    + Response 404 (application/json)
+    
+            {
+                "error": "user not found"
+            }
+
+## XPA partila update of user [/mobile/user/edit]
+### Update a user [POST]
+
+This resource has the following attributes
+
+- `id` The users ID (Required)
+- `email` (Optional) The email address of the user. Signup will be rejected if an existing user record with a matching email address is found
+- `firstName` (Optional) The first name of the user
+- `lastName` (Optional) The surname of the user
+- `password` (Optional) The password used to authenticate the user. The password must be at least 8 characters long and contain at least 2 digits
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `cc` (Optional) The country code E.g GB TODO provide a call for all country codes
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `distance` (Optional) Units for distance MILES, KILOMETERS
+- `time` (Optional) Units for time DAY HOUR MINUTES
+- `taxName` (Optional) Name of the tax, e.g vat or gst 
+- `taxPercentage` (Optional) ercentage of the tax numeric so 20% will be 20
+
+The 409 response is returned if a user with a matching email address already exists. 
+
+
+Curl example: 
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d  '{"id":"3", "firstName":"Darth renamed"}'   https://hikalu.com/mobile/user/edit`
+
++ Request (application/json)
+
+        {
+            "id": "23",
+            "firstName": "Darth",
+            "lastName": "Vader",
+            "email": "admin@adis-ltd.co.uk",
+            "password": "password123",
+            "ccy": "GBP",
+            "cc": "GB",
+            "distance": "kilometers",
+            "time": "day",
+            "tax": "vat",
+            "taxPercentage": "20"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message":"Successfully updated user",
+            "id":"41"
+        }
+        
++ Response 404
+
+        {
+            "message" : "User does not exist"
+        }
+
+## Logout for all [/mobile/logout]
+Logout for all users 
+
+Curl Example:
+
+`curl -b cookies.txt -c cookies.txt -i -H -k  --insecure -X POST https://hikalu.com/mobile/logout`
+
+
+### Logout using Google OAuth2 [POST]
+
++ Request
+    
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    
++ Response 200 (application/json)
+
+  
+    + Body
+
+            {
+                "message":"successfully logged out"
+            }
+            
+    + Response 401 (application/json)
+    
+            {
+                "error": "Credentials required"
+            }
+
+
+## Test calls to validate authentication [/test]
+Test calls to test that you can call secured resources
+
+Curl Example:
+
+`curl -b cookies.txt -c cookies.txt -i -H -k --insecure -X GET https://hikalu.com/test`  (Test using HTTP GET)
+
+
+`curl -b cookies.txt -c cookies.txt -i -H -k --data "email=s@junocube.com"  --insecure -X POST https://hikalu.com/test`   (Test using HTTP POST with params returning JSON)
+
+
+`curl -i -H -k --insecure --cookie "xpa-sit=4af352e0fde5f81ba7e27a28f26b2e60a3be125c9c628c114acb0adaa8d154ceb241dcb97514c1ef437227efc320296f2036324be5af3a4c3dfb3d3ecfdc1cca6fbb200f0fe9ab848f132a580c01d04b77dd6bbeddd4a5d2" -X GET https://hikalu.com/test`  (Test using HTTP GET with cookie/sessionId in the command and not in the text file)
+
+
+### Logout using Google OAuth2 [POST]
+
++ Request
+    
+    + Header
+     
+            Cookie: xpa-sit=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    
++ Response 200 (application/json)
+
