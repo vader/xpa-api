@@ -138,12 +138,11 @@ If it does not authenticate and you get some json error message it means the aut
                 "error": "user not found"
             }
 
-## XPA partila update of user [/mobile/user/edit]
+## XPA partila update of user [/mobile/user/edit/{id}]
 ### Update a user [POST]
 
 This resource has the following attributes
 
-- `id` The users ID (Required)
 - `email` (Optional) The email address of the user. Signup will be rejected if an existing user record with a matching email address is found
 - `firstName` (Optional) The first name of the user
 - `lastName` (Optional) The surname of the user
@@ -162,7 +161,13 @@ The 409 response is returned if a user with a matching email address already exi
 Curl example: 
 
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d  '{"id":"3", "firstName":"Darth renamed"}'   https://hikalu.com/mobile/user/edit`
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d  '{"firstName":"Darth renamed"}'   https://hikalu.com/mobile/user/edit/3`
+
+
++ Parameters
+    + id (string, required, `numerice value representing a long`) ... The id of the `user` to retrieve
+
+
 
 + Request (application/json)
 
