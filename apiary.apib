@@ -463,6 +463,8 @@ Receipt type can be the following values
 
 
 This resource has the following attributes
+
+
 - `name` (Optional) name of the receipt
 - `description`  (Optional)  Description of the receipt
 - `amount` (Optional)  Amount in double representing a currency value. I.e 103.00 or 33.12 
@@ -1282,6 +1284,8 @@ This resource has the following attributes
 
 - `name` (Required) name of the report
 - `type` (Required) the type of the report values are (invoice expense)
+- `reportStatus`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
+- `reportType`  (Optional) case sensitive (INVOICE, EXPENSE)
 - `date` (Optional) date in the datetime format "2013-03-30T09:04:56.123"
 - `discount` (Optional) Numberic discount amount
 - `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
@@ -1289,6 +1293,7 @@ This resource has the following attributes
 - `notes` (Optional) Notes attached to the report
 - `fromEmail` (Optional) if different from the users email
 - `toEmail` (Optional) who this report is going to be sent to
+- `contactInfo` (Optional) if not provide the default from user will be used
 
 
 Curl example: 
@@ -1322,6 +1327,11 @@ Curl example:
           "id":"0e8a4dae-4866-4c94-998c-541cd4910a5f",
           "reportId":1
         }
+        
+        
++ Response 400 (application/json)
+
+            {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
 
 ## Delete a Report [/mobile/report/{reportId}]
 ### Delete Report API [DELETE]
@@ -1364,3 +1374,70 @@ Curl example:
         }
 
 
+## Update Report [/mobile/report/{reportType}/{id}]
+### Update report [POST]
+
+
+Receipt type can be the following values
+
+
+- `reportType` invoice
+- `reportType` expense
+
+
+
+This resource has the following attributes
+
+
+- `name` (Optional) name of the receipt
+- `type`  (Optional) the type of the report values are (invoice expense)
+- `reportStatus`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
+- `reportType`  (Optional) case sensitive (INVOICE, EXPENSE)
+- `date` (Optional)  date in the datetime format "2013-03-30T09:04:56.123"
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `discount` (Optional) Numberic discount amount
+- `receiptIds` (Optional) comma seperated list of receitp ids to attach to the report. Important, if you are adding a receipt you need to provide all the receipt ids
+- `notes` (Optional) Notes attached to the report
+- `fromEmail` (Optional) if different from the users email
+- `toEmail` (Optional) who this report is going to be sent to
+- `contactInfo` (Optional) if not provide the default from user will be used
+
+
+Curl example:
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{ "name":"Changrom a mobile device","amount":"55.21", "tags":"new45555"}'   https://hilalu.com/mobile/receipt/update/receipt/44`
+
+
++ Request (application/json)
+
+        {
+            "name": "Lunch at Harrods",
+            "description": "Met with Ahmad to discuss the terms of the contract",
+            "amount": "55.56",
+            "ccy": "GBP",
+            "tags": "lunch, entertainment, project dark star"
+        }
+
++ Response 200 (application/json)
+
+           {
+               "message":"Successfully updated report name=Changed report name",
+               "id":"ed0777e2-aea5-469e-a57b-ef65da919288",
+               "reportId":25
+           }
+        
+
++ Response 404 (application/json)
+
+            {
+                "message":"Receipt id=9999 not found""
+            }
+            
+
++ Response 400 (application/json)
+
+            {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
+            
+            
+              
