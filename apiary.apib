@@ -3,6 +3,14 @@ HOST: https://www.hikalu.com
 
 # XPAUSER
 XPA Mobile User API is an *api allowing users to register and log into XPA* 
+Authentication works in the way that the client needs to provide the valid cookie at all times when accessing any secure resources. 
+When the client authenticates using the username or oauth login it will receive a cookie. That cookie needs to be included in all requests in the header. 
+Once authenticated use the test method below to validate you can call a secure resource. 
+If you use the generated curl examples remember to include
+- `--insecure -k` As the resource is on SSL 
+- `Cookie` Ensure you have the valid cookie in the header. You can get this cookie by using the curl login method on username login which saves it to a file. Remember also to use the correct cookie name. sit = xpa-sit
+
+
 
 # Group User API
 Notes related resources of the **XPA Mobile User API**
