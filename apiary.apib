@@ -195,19 +195,26 @@ Curl example:
 
 + Request (application/json)
 
-        {
-            "id": "23",
-            "firstName": "Darth",
-            "lastName": "Vader",
-            "email": "admin@adis-ltd.co.uk",
-            "password": "password123",
-            "ccy": "GBP",
-            "cc": "GB",
-            "distance": "kilometers",
-            "time": "day",
-            "tax": "vat",
-            "taxPercentage": "20"
-        }
+    + Header
+
+            Set-Cookie: xpa-dev=7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59; Expires=Tue, 15 Jul 2014 21:58:57 GMT; Path=/; Secure; HTTPOnly
+
+    + Body
+
+
+            {
+                "id": "23",
+                "firstName": "Darth",
+                "lastName": "Vader",
+                "email": "admin@adis-ltd.co.uk",
+                "password": "password123",
+                "ccy": "GBP",
+                "cc": "GB",
+                "distance": "kilometers",
+                "time": "day",
+                "tax": "vat",
+                "taxPercentage": "20"
+            }
 
 + Response 200 (application/json)
 
@@ -233,10 +240,9 @@ Curl Example:
 ### Logout [POST]
 
 + Request 
-    + Headers
+    + Header
 
-            Accept: application/json
-            Cookie: Set-Cookie: xpa-dev=; path=/; expires=Mon, 30-Jul-2012 09:12:42 GMT; secure; HttpOnly
+            Set-Cookie: xpa-dev=7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59; Expires=Tue, 15 Jul 2014 21:58:57 GMT; Path=/; Secure; HTTPOnly
 
     
 + Response 200 (application/json)
@@ -276,8 +282,8 @@ Curl Example:
 + Request
     
     + Header
-     
-            Cookie: xpa-sit=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+            Set-Cookie: xpa-dev=7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59; Expires=Tue, 15 Jul 2014 21:58:57 GMT; Path=/; Secure; HTTPOnly
 
     
 + Response 200 (application/json)
@@ -314,15 +320,21 @@ Curl example:
 
 
 + Request (application/json)
+    
+    + Header
 
-        {
-            "name": "Lunch at Harrods",
-            "description": "Met with Ahmad to discuss the terms of the contract",
-            "amount": "55.56",
-            "ccy": "GBP",
-            "tags": "lunch, entertainment, project dark star",
-            "created": "2014-07-11T09:04:56.123"
-        }
+            Set-Cookie: xpa-dev=7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59; Expires=Tue, 15 Jul 2014 21:58:57 GMT; Path=/; Secure; HTTPOnly
+
+    + Body
+    
+            {
+                "name": "Lunch at Harrods",
+                "description": "Met with Ahmad to discuss the terms of the contract",
+                "amount": "55.56",
+                "ccy": "GBP",
+                "tags": "lunch, entertainment, project dark star",
+                "created": "2014-07-11T09:04:56.123"
+            }
 
 + Response 200 (application/json)
 
@@ -507,12 +519,12 @@ Curl Example:
 
 + Request 
 
-
     + Header
      
             Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
 
-            
+    + Body
+    
             {
                 "id": "(Required id of the receipt to attach the image to)",
                 "image": "@full path to the image see example"
@@ -540,6 +552,11 @@ Curl Example:
 
             Content-Type: application/json
             Accept: application/json
+            
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
 
 + Response 200 (application/json)
 
@@ -580,18 +597,24 @@ Curl examples:
 
 + Request (application/json)
 
-        {
-            "name": "Lunch at Harrods",
-            "description": "Met with Ahmad to discuss the terms of the contract",
-            "amount": "55.56",
-            "ccy": "GBP",
-            "tags": "lunch, entertainment, project dark star"
-        }
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    + Body
+
+            {
+                "name": "Lunch at Harrods",
+                "description": "Met with Ahmad to discuss the terms of the contract",
+                "amount": "55.56",
+                "ccy": "GBP",
+                "tags": "lunch, entertainment, project dark star"
+            }
         
 + Response 200 (application/json)
         
 
-[
+        [
           {
             "id": 103,
             "name": "Changed name again",
@@ -1258,7 +1281,7 @@ Report related resources of the **Receipt API**
 This resource has the following attributes
 
 - `name` (Required) name of the report
-- `reportType` (Required) the type of the report values are (invoice expense)
+- `type` (Required) the type of the report values are (invoice expense)
 - `date` (Optional) date in the datetime format "2013-03-30T09:04:56.123"
 - `discount` (Optional) Numberic discount amount
 - `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
@@ -1271,20 +1294,26 @@ This resource has the following attributes
 Curl example: 
 
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"First Mobile Invoice report","reportTyoe":"I","date":"2013-03-30T09:04:56.123", "discount":"100.00", "ccy": "GBP", "receiptIds" : "101,102"}'   https://hikalu.com/mobile/report/add`
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"Second Mobile Invoice report","type":"I","date":"2013-03-30T09:04:56.123", "discount":"100.00", "ccy": "GBP", "receiptIds" : "1,21"}'  https://hikalu.com/mobile/report/add`
 
 + Request (application/json)
 
-        {
-            "name": "Invoice",
-            "reportType": "invoice",
-            "fromEmail": "admin@adis-ltd.co.uk",
-            "discount": "100",
-            "ccy": "GBP",
-            "receiptIds": "1,11,25",
-            "notes": "Please settle this invoice by the required time",
-            "vat": "20"
-        }
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    + Body
+
+            {
+                "name": "Invoice",
+                "type": "invoice",
+                "fromEmail": "admin@adis-ltd.co.uk",
+                "discount": "100",
+                "ccy": "GBP",
+                "receiptIds": "1,11,25",
+                "notes": "Please settle this invoice by the required time",
+                "vat": "20"
+            }
 
 + Response 200 (application/json)
 
