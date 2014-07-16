@@ -262,4 +262,959 @@ Notes related resources of the **XPA Mobile User API**
 Users have to log into the API using either OAuth2 (Google) or Username and Password. As part of the response the cookie file is returend. The cookie contains the session id with the cookie id. 
 
 
+## New Receipt [/mobile/add/receipt]
+### Add a new Receipt representing a receipt [POST]
+
+
+This resource has the following attributes
+
+- `name` (Required) name of the receipt
+- `description`  (Required)  Description of the receipt
+- `amount` (Required)  Amount in double representing a currency value. I.e 103.00 or 33.12 
+- `ccy` (Required) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `tags` (Optional) comma seperated list of tags. A tag is what you tag the receipt as, E.g Entertainment 
+- `created` (Optional) date the receipt was created, defaults to the current date if not provided
+
+
+Curl example:
+
+
+` curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Dinner with Alina","description":"First ever receipt from a mobile device","amount":"55.90", "":"", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP"}'   https://hikalu.com/mobile/add/receipt`
+
+
++ Request (application/json)
+
+        {
+            "name": "Lunch at Harrods",
+            "description": "Met with Ahmad to discuss the terms of the contract",
+            "amount": "55.56",
+            "ccy": "GBP",
+            "tags": "lunch, entertainment, project dark star",
+            "created": "2014-07-11T09:04:56.123"
+        }
+
++ Response 200 (application/json)
+
+            {
+                "message":"Successfully added receipt 'Dinner with Alina'",
+                "id":41
+            }
+        
+
++ Response 400 (application/json)
+
+            {
+                "message":"Some mandatory fields not provided: name=null, description=First ever receipt from a mobile device, amount=null"
+            }
+            
+## New Time Receipt [/mobile/add/time]
+### Add a new Receipt representing an receipt for time [POST]
+
+
+This resource has the following attributes
+
+- `name` (Required) name of the receipt
+- `description`  (Required)  Description of the receipt
+- `timeUnit` (Required) the units the time will be calculated in. Supported values are MINUTE, HOUR & DAY
+- `time` (Required) actual time in decimal format. E.g 1 or 1.4 etc
+- `timeRate` (Required) The charge per unit. E.g if the ccy is £ the unit HOUR and the time rate 10 then this will be £10 per hour
+- `ccy` (optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  Default will be used if not provided
+- `amount` (optional)  If amount is not provide it will be calculated from the time units and amount
+- `tags` (Optional) comma seperated list of tags. A tag is what you tag the receipt as, E.g Entertainment 
+- `created` (Optional) date the receipt was created, defaults to the current date if not provided
+
+Curl example:
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Time worked on project xyz","description":"Working really hard on this", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP", "timeUnit":"HOUR","time":"10", "timeRate":"55.50"}'   https://hikalu.com/mobile/add/time`
+
+
++ Request (application/json)
+
+        {
+            "name": "UI Design for XPA",
+            "description": "Designed the UI for James on the XPA receipt input screen",
+            "timeUnit": "DAY",
+            "time": "5",
+            "timeRate": "250",
+            "tags": "API Design, API 2014, Work",
+            "created": "2014-07-11T09:04:56.123"
+        }
+
++ Response 200 (application/json)
+
+            {
+                "message":"Successfully added receipt 'UI Design for XPA'",
+                "id":41
+            }
+        
+
++ Response 400 (application/json)
+
+            {
+                "message":"Some mandatory fields not provided: name=null, description=First ever receipt from a mobile device, amount=null"
+            }     
+            
+
+## New Distance Receipt [/mobile/add/distance]
+### Add a new Receipt representing a receipt for milage/distance [POST]
+
+
+This resource has the following attributes
+
+- `name` (Required) name of the receipt
+- `description`  (Required)  Description of the receipt
+- `units` (Required) the units the time will be calculated in. Supported values are MILES & KILOMETERS
+- `distance` (Required) actual distance 105
+- `distanceRate` (Required) The charge per unit. E.g if the ccy is £ the units KILOMETER and the distanceRate is 0.30 then this will be £0.30 per kilometer
+- `ccy` (optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  Default will be used if not provided
+- `amount` (optional)  If amount is not provide it will be calculated from the time units and amount
+- `tags` (Optional) comma seperated list of tags. A tag is what you tag the receipt as, E.g Entertainment 
+- `created` (Optional) date the receipt was created, defaults to the current date if not provided
+
+Curl example:
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Time worked on project xyz","description":"Working really hard on this", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP", "units":"KILOMETERS","distance":"589", "distanceRate":"55.50"}'   https://hikalu.com/mobile/add/time`
+
+
+
++ Request (application/json)
+
+        {
+            "name": "Weekly travel for XPA",
+            "description": "Travel between clients sites while desiging the API for XPA",
+            "units": "KILOMETERS",
+            "distance": "512",
+            "distanceRate": "0.32",
+            "tags": "Travel-2014, Travel XPA, Work",
+            "created": "2014-07-11T09:04:56.123"
+        }
+        
+       
++ Response 200 (application/json)
+
+            {
+                "message":"Successfully added receipt 'Weekly travel for XPA'",
+                "id":41
+            }
+        
+
++ Response 400 (application/json)
+
+            {
+                "message":"Some mandatory fields not provided: name=null, description=First ever receipt from a mobile device, amount=null"
+            }    
+  
+  
+## Update Receipt [/mobile/receipt/update/{receiptType}/{id}]
+### Update receipt [POST]
+
+
+Receipt type can be the following values
+
+
+- `receiptType` receipt
+- `receiptType` time
+- `receiptType` distance
+
+
+This resource has the following attributes
+- `name` (Optional) name of the receipt
+- `description`  (Optional)  Description of the receipt
+- `amount` (Optional)  Amount in double representing a currency value. I.e 103.00 or 33.12 
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `tags` (Optional) comma seperated list of tags. A tag is what you tag the receipt as, E.g Entertainment. The tags provided will update the tags on the receipt 
+- `units` (Optional) the units the time will be calculated in. Supported values are MILES & KILOMETERS
+- `distance` (Optional) actual distance 105
+- `distanceRate` (Optional) The charge per unit. E.g if the ccy is £ the units KILOMETER and the distanceRate is 0.30 then this will be £0.30 per kilometer
+- `timeUnit` (Optional) the units the time will be calculated in. Supported values are MINUTE, HOUR & DAY
+- `time` (Optional) actual time in decimal format. E.g 1 or 1.4 etc
+- `timeRate` (Optional) The charge per unit. E.g if the ccy is £ the unit HOUR and the time rate 10 then this will be £10 per hour
+- `created` (Optional) date the receipt was created, defaults to the current date if not provided
+
+Curl example:
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{ "name":"Changrom a mobile device","amount":"55.21", "tags":"new45555"}'   https://hilalu.com/mobile/receipt/update/receipt/44`
+
+
++ Request (application/json)
+
+        {
+            "name": "Lunch at Harrods",
+            "description": "Met with Ahmad to discuss the terms of the contract",
+            "amount": "55.56",
+            "ccy": "GBP",
+            "tags": "lunch, entertainment, project dark star"
+        }
+
++ Response 200 (application/json)
+
+            {
+                "message":"Successfully updated receipt"",
+                "id":44
+            }
+        
+
++ Response 404 (application/json)
+
+            {
+                "message":"Receipt id=9999 not found""
+            }
+              
+            
+## Upload image for receipt [/receipt/upload]
+### Add an image to a receipt [POST]  
+
+This is a form submit with two parameters. Please have a look at the curl example 
+
+Curl Example:
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -F "id=103" -F "image=@/Users/skywalker/Dropbox/receipt-images/photo-33.JPG" https://hikalu.com/receipt/upload`
+
+
++ Request 
+
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+            
+            {
+                "id": "(Required id of the receipt to attach the image to)",
+                "image": "@full path to the image see example"
+            }        
+
++ Response 200 (application/json)
+
+        {
+            "status":"SUCCESS",
+            "image":{"imageId":"778e8d48-4364-4a44-9c8e-0f3dcce4df9f", "name":"photo-33.JPG"}
+        }
+        
+        
+    
+        
+## Delete a receipt [/mobile/receipt/delete/{id}]
+### Delete a receipt [DELETE]     
+
+Curl Example:
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X DELETE  https://hikalu.com/mobile/receipt/delete/104`
+
+
++ Request
+
+            Content-Type: application/json
+            Accept: application/json
+
++ Response 200 (application/json)
+
+
+        {
+            "message":"Deleted receipt with id=104"
+        }
+        
++ Response 404 (application/json)
+
+
+        {
+            "message":"Receipt id=104 not found"
+        }    
+        
+
+## Search Receipts [/mobile/receipt/search/{receiptType}]
+### Search for receipts [GET]    
+
+Receipt type can be the following values
+
+
+- `receiptType` receipt
+- `receiptType` time
+- `receiptType` distance
+- `receiptType` all
+
+This resource has the following attributes
+
+- `from` (Required in date format )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
+- `to`  (optional) DateTime format required "2013-03-30T09:04:56.123" If provided will search between two dates. If not provided will search from the from date to the current date
+- `limit` (optional) the amount of results to limit. If not provided defaults to system default
+
+
+Curl examples:
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X GET -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}'   https://hikalu.com/mobile/receipt/search/all`
+
++ Request (application/json)
+
+        {
+            "name": "Lunch at Harrods",
+            "description": "Met with Ahmad to discuss the terms of the contract",
+            "amount": "55.56",
+            "ccy": "GBP",
+            "tags": "lunch, entertainment, project dark star"
+        }
+        
++ Response 200 (application/json)
+        
+
+[
+          {
+            "id": 103,
+            "name": "Changed name again",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 55556.9,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": "DISTANCE",
+            "units": "KILOMETERS",
+            "distance": 589,
+            "distanceRate": 55.5,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 04:06",
+            "count": 2,
+            "tags": [
+              {
+                "id": 127,
+                "name": " tag 2",
+                "timestamp": 1405430006157
+              },
+              {
+                "id": 128,
+                "name": "tag1",
+                "timestamp": 1405430006158
+              },
+              {
+                "id": 129,
+                "name": " tag - 5",
+                "timestamp": 1405430006158
+              }
+            ],
+            "imageIds": [
+              {
+                "id": "c9d11bd3-8c77-41c3-af4a-401cdb000f0a",
+                "image": null,
+                "imageName": "harrods-large.JPG",
+                "contentType": "image\/jpeg",
+                "imageStoreId": null,
+                "deleted": false,
+                "timestamp": 1405430836834,
+                "imageBytes": null
+              },
+              {
+                "id": "778e8d48-4364-4a44-9c8e-0f3dcce4df9f",
+                "image": null,
+                "imageName": "photo-33.JPG",
+                "contentType": "image\/jpeg",
+                "imageStoreId": null,
+                "deleted": false,
+                "timestamp": 1405430700164,
+                "imageBytes": null
+              }
+            ],
+            "lastUpdated": 1405436809468,
+            "allImageIds": [
+              {
+                "id": "c9d11bd3-8c77-41c3-af4a-401cdb000f0a",
+                "image": null,
+                "imageName": "harrods-large.JPG",
+                "contentType": "image\/jpeg",
+                "imageStoreId": null,
+                "deleted": false,
+                "timestamp": 1405430836834,
+                "imageBytes": null
+              },
+              {
+                "id": "778e8d48-4364-4a44-9c8e-0f3dcce4df9f",
+                "image": null,
+                "imageName": "photo-33.JPG",
+                "contentType": "image\/jpeg",
+                "imageStoreId": null,
+                "deleted": false,
+                "timestamp": 1405430700164,
+                "imageBytes": null
+              }
+            ],
+            "selectedTags": " tag - 5,tag1, tag 2",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a355,556.90",
+            "euro": false,
+            "displayTotal": "\u00a355,556.90",
+            "defaultCcyAmount": 55556.9,
+            "reportIds": "[]"
+          },
+          {
+            "id": 102,
+            "name": "Time worked on project xyz",
+            "description": "Working really hard on this",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 555,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": "TIME",
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": "HOUR",
+            "time": 10,
+            "timeRate": 55.5,
+            "timestamp": "15-Jul-2014 02:13",
+            "count": 0,
+            "tags": [
+              {
+                "id": 124,
+                "name": "tag1",
+                "timestamp": 1405430003818
+              },
+              {
+                "id": 125,
+                "name": " tag 2",
+                "timestamp": 1405430003819
+              },
+              {
+                "id": 126,
+                "name": " tag - 5",
+                "timestamp": 1405430003820
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405430003816,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": " tag - 5, tag 2,tag1",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a3555.00",
+            "euro": false,
+            "displayTotal": "\u00a3555.00",
+            "defaultCcyAmount": 555,
+            "reportIds": "[]"
+          },
+          {
+            "id": 101,
+            "name": "Time worked on project xyz",
+            "description": "Working really hard on this",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 555,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": "TIME",
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": "HOUR",
+            "time": 10,
+            "timeRate": 55.5,
+            "timestamp": "15-Jul-2014 02:13",
+            "count": 0,
+            "tags": [
+              {
+                "id": 121,
+                "name": " tag 2",
+                "timestamp": 1405430002057
+              },
+              {
+                "id": 122,
+                "name": " tag - 5",
+                "timestamp": 1405430002058
+              },
+              {
+                "id": 123,
+                "name": "tag1",
+                "timestamp": 1405430002058
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405430002054,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "tag1, tag - 5, tag 2",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a3555.00",
+            "euro": false,
+            "displayTotal": "\u00a3555.00",
+            "defaultCcyAmount": 555,
+            "reportIds": "[]"
+          },
+          {
+            "id": 81,
+            "name": "Time worked on project xyz",
+            "description": "Working really hard on this",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 32689.5,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": "DISTANCE",
+            "units": "KILOMETERS",
+            "distance": 589,
+            "distanceRate": 55.5,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 02:13",
+            "count": 0,
+            "tags": [
+              {
+                "id": 101,
+                "name": " tag 2",
+                "timestamp": 1405429989681
+              },
+              {
+                "id": 102,
+                "name": " tag - 5",
+                "timestamp": 1405429989682
+              },
+              {
+                "id": 103,
+                "name": "tag1",
+                "timestamp": 1405429989684
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405429989678,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "tag1, tag - 5, tag 2",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a332,689.50",
+            "euro": false,
+            "displayTotal": "\u00a332,689.50",
+            "defaultCcyAmount": 32689.5,
+            "reportIds": "[]"
+          },
+          {
+            "id": 62,
+            "name": "Time worked on project xyz",
+            "description": "Working really hard on this",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 32689.5,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": "DISTANCE",
+            "units": "KILOMETERS",
+            "distance": 589,
+            "distanceRate": 55.5,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 02:06",
+            "count": 0,
+            "tags": [
+              {
+                "id": 84,
+                "name": " tag 2",
+                "timestamp": 1405429594904
+              },
+              {
+                "id": 85,
+                "name": "tag1",
+                "timestamp": 1405429594905
+              },
+              {
+                "id": 86,
+                "name": " tag - 5",
+                "timestamp": 1405429594905
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405429594903,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": " tag - 5,tag1, tag 2",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a332,689.50",
+            "euro": false,
+            "displayTotal": "\u00a332,689.50",
+            "defaultCcyAmount": 32689.5,
+            "reportIds": "[]"
+          },
+          {
+            "id": 61,
+            "name": "Time worked on project xyz",
+            "description": "Working really hard on this",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 555,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": "TIME",
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": "HOUR",
+            "time": 10,
+            "timeRate": 55.5,
+            "timestamp": "15-Jul-2014 01:56",
+            "count": 0,
+            "tags": [
+              {
+                "id": 81,
+                "name": " tag 2",
+                "timestamp": 1405429015444
+              },
+              {
+                "id": 82,
+                "name": " tag - 5",
+                "timestamp": 1405429015445
+              },
+              {
+                "id": 83,
+                "name": "tag1",
+                "timestamp": 1405429015445
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405429015442,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "tag1, tag - 5, tag 2",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a3555.00",
+            "euro": false,
+            "displayTotal": "\u00a3555.00",
+            "defaultCcyAmount": 555,
+            "reportIds": "[]"
+          },
+          {
+            "id": 44,
+            "name": "Changed name again",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 55.21,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": null,
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 04:20",
+            "count": 0,
+            "tags": [
+              {
+                "id": 223,
+                "name": "new45555",
+                "timestamp": 1405441004234
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405437636293,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "new45555",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a355.21",
+            "euro": false,
+            "displayTotal": "\u00a355.21",
+            "defaultCcyAmount": 55.21,
+            "reportIds": "[]"
+          },
+          {
+            "id": 43,
+            "name": "Dinner with Alina",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": null,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": null,
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 01:43",
+            "count": 0,
+            "tags": [
+              {
+                "id": 47,
+                "name": "tag1",
+                "timestamp": 1405428215670
+              },
+              {
+                "id": 48,
+                "name": " tag 2",
+                "timestamp": 1405428215671
+              },
+              {
+                "id": 49,
+                "name": " tag - 5",
+                "timestamp": 1405428215671
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405428215668,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": " tag - 5, tag 2,tag1",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "",
+            "euro": false,
+            "displayTotal": "",
+            "defaultCcyAmount": null,
+            "reportIds": "[]"
+          },
+          {
+            "id": 42,
+            "name": "Dinner with Alina",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": null,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": null,
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 01:43",
+            "count": 0,
+            "tags": [
+              {
+                "id": 44,
+                "name": "tag1",
+                "timestamp": 1405428189944
+              },
+              {
+                "id": 45,
+                "name": " tag 2",
+                "timestamp": 1405428189945
+              },
+              {
+                "id": 46,
+                "name": " tag - 5",
+                "timestamp": 1405428189945
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405428189942,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": " tag - 5, tag 2,tag1",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "",
+            "euro": false,
+            "displayTotal": "",
+            "defaultCcyAmount": null,
+            "reportIds": "[]"
+          },
+          {
+            "id": 41,
+            "name": "Dinner with Alina",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 55.9,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": null,
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 01:39",
+            "count": 0,
+            "tags": [
+              {
+                "id": 41,
+                "name": " tag - 5",
+                "timestamp": 1405427985134
+              },
+              {
+                "id": 42,
+                "name": " tag 2",
+                "timestamp": 1405427985135
+              },
+              {
+                "id": 43,
+                "name": "tag1",
+                "timestamp": 1405427985135
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405427985131,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "tag1, tag 2, tag - 5",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a355.90",
+            "euro": false,
+            "displayTotal": "\u00a355.90",
+            "defaultCcyAmount": 55.9,
+            "reportIds": "[]"
+          },
+          {
+            "id": 21,
+            "name": "Dinner with Alina",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 55.9,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": null,
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 01:38",
+            "count": 0,
+            "tags": [
+              {
+                "id": 21,
+                "name": " tag 2",
+                "timestamp": 1405427933805
+              },
+              {
+                "id": 22,
+                "name": " tag - 5",
+                "timestamp": 1405427933806
+              },
+              {
+                "id": 23,
+                "name": "tag1",
+                "timestamp": 1405427933806
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405427933801,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "tag1, tag - 5, tag 2",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a355.90",
+            "euro": false,
+            "displayTotal": "\u00a355.90",
+            "defaultCcyAmount": 55.9,
+            "reportIds": "[]"
+          },
+          {
+            "id": 1,
+            "name": "Dinner with Alina",
+            "description": "First ever receipt from a mobile device",
+            "created": "11-Jul-2014",
+            "zone": "Europe\/London",
+            "amount": 55.9,
+            "currency": "GBP",
+            "status": "SAVED",
+            "type": null,
+            "units": null,
+            "distance": null,
+            "distanceRate": null,
+            "timeUnit": null,
+            "time": null,
+            "timeRate": null,
+            "timestamp": "15-Jul-2014 01:36",
+            "count": 0,
+            "tags": [
+              {
+                "id": 1,
+                "name": " tag - 5",
+                "timestamp": 1405427815868
+              },
+              {
+                "id": 2,
+                "name": " tag 2",
+                "timestamp": 1405427815872
+              },
+              {
+                "id": 3,
+                "name": "tag1",
+                "timestamp": 1405427815873
+              }
+            ],
+            "imageIds": [
+              
+            ],
+            "lastUpdated": 1405427815859,
+            "allImageIds": [
+              
+            ],
+            "selectedTags": "tag1, tag 2, tag - 5",
+            "attachedToReport": false,
+            "reportNames": "None",
+            "attachedToSubmittedReport": false,
+            "displayAmount": "\u00a355.90",
+            "euro": false,
+            "displayTotal": "\u00a355.90",
+            "defaultCcyAmount": 55.9,
+            "reportIds": "[]"
+          }
+        ]
+
+
+
 
