@@ -1217,4 +1217,51 @@ Curl examples:
 
 
 
+# Group Report
+Report related resources of the **Receipt API**
+
+## Create new Report [/mobile/report/add]
+### Create new Report API [PUT]
+
+
+This resource has the following attributes
+
+- `name` (Required) name of the report
+- `reportType` (Required) the type of the report values are (invoice expense)
+- `date` (Optional) date in the datetime format "2013-03-30T09:04:56.123"
+- `discount` (Optional) Numberic discount amount
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `receiptIds` (Optional) comma seperated list of receitp ids to attach to the report
+- `notes` (Optional) Notes attached to the report
+- `fromEmail` (Optional) if different from the users email
+- `toEmail` (Optional) who this report is going to be sent to
+
+
+Curl example: 
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"First Mobile Invoice report","reportTyoe":"I","date":"2013-03-30T09:04:56.123", "discount":"100.00", "ccy": "GBP", "receiptIds" : "101,102"}'   https://hikalu.com/mobile/report/add`
+
++ Request (application/json)
+
+        {
+            "name": "Invoice",
+            "reportType": "invoice",
+            "fromEmail": "admin@adis-ltd.co.uk",
+            "discount": "100",
+            "ccy": "GBP",
+            "receiptIds": "1,11,25",
+            "notes": "Please settle this invoice by the required time",
+            "vat": "20"
+        }
+
++ Response 200 (application/json)
+
+        {
+          "message": "Successfully created report Invoice",
+          "id":"0e8a4dae-4866-4c94-998c-541cd4910a5f",
+          "reportId":1
+        }
+
+
 
