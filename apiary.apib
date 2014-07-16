@@ -3,11 +3,16 @@ HOST: https://www.hikalu.com
 
 # XPAUSER
 XPA Mobile User API is an *api allowing users to register and log into XPA* 
-Authentication works in the way that the client needs to provide the valid cookie at all times when accessing any secure resources. 
+
+
+Authentication works by passing a valid authentication cookie when accessing any secure resources. 
 When the client authenticates using the username or oauth login it will receive a cookie. That cookie needs to be included in all requests in the header. 
+
 Once authenticated use the test method below to validate you can call a secure resource. 
 If you use the generated curl examples remember to include
-- `--insecure -k` As the resource is on SSL 
+
+
+- `--insecure -k` As the resource is using SSL 
 - `Cookie` Ensure you have the valid cookie in the header. You can get this cookie by using the curl login method on username login which saves it to a file. Remember also to use the correct cookie name. sit = xpa-sit
 
 
@@ -263,6 +268,8 @@ Curl Example:
 
 `curl -i -H -k --insecure --cookie "xpa-sit=4af352e0fde5f81ba7e27a28f26b2e60a3be125c9c628c114acb0adaa8d154ceb241dcb97514c1ef437227efc320296f2036324be5af3a4c3dfb3d3ecfdc1cca6fbb200f0fe9ab848f132a580c01d04b77dd6bbeddd4a5d2" -X GET https://hikalu.com/test`  (Test using HTTP GET with cookie/sessionId in the command and not in the text file)
 
+
+`curl --include --insecure -k --header "Cookie: xpa-dev=1ac3bce59a423d8728478b027ce64a65408fa0e6991dba8b701caaa20c0db919e501a7727560795dc11407cefc8cfc6f00c7e5845cfbe15fb1db9813f8db2cd9981730821ff0f7ef6cddc525b63bd2cfa5d00a72a419f8e8" https://localhost:9443/test`
 
 ### Logout using Google OAuth2 [GET]
 
