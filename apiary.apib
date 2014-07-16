@@ -37,6 +37,8 @@ This resource has the following attributes
 - `time` (Optional) Units for time DAY HOUR MINUTES
 - `taxName` (Optional) Name of the tax, e.g vat or gst 
 - `taxPercentage` (Optional) ercentage of the tax numeric so 20% will be 20
+- `tags` (Optional) comma seperated list of tags 
+
 
 The 409 response is returned if a user with a matching email address already exists. 
 
@@ -178,6 +180,8 @@ This resource has the following attributes
 - `time` (Optional) Units for time DAY HOUR MINUTES
 - `taxName` (Optional) Name of the tax, e.g vat or gst 
 - `taxPercentage` (Optional) ercentage of the tax numeric so 20% will be 20
+- `tags` (Optional) comma seperated list of tags 
+
 
 The 409 response is returned if a user with a matching email address already exists. 
 
@@ -186,6 +190,11 @@ Curl example:
 
 
 `curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d  '{"firstName":"Darth renamed"}'   https://hikalu.com/mobile/user/edit/3`
+
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d  '{"tags":"Entertainment , Holidays, Food"}'   https://hikalu.com/mobile/user/edit/21`
+
+
 
 
 + Parameters
