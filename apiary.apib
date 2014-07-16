@@ -360,7 +360,7 @@ Curl example:
             }
             
 ## New Time Receipt [/mobile/add/time]
-### Add a new Receipt representing an receipt for time [POST]
+### Add a new Receipt representing an receipt for time [PUT]
 
 
 This resource has the following attributes
@@ -378,7 +378,7 @@ This resource has the following attributes
 Curl example:
 
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Time worked on project xyz","description":"Working really hard on this", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP", "timeUnit":"HOUR","time":"10", "timeRate":"55.50"}'   https://hikalu.com/mobile/add/time`
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"Time worked on project xyz","description":"Working really hard on this", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP", "timeUnit":"HOUR","time":"10", "timeRate":"55.50"}'   https://hikalu.com/mobile/add/time`
 
 
 + Request (application/json)
@@ -409,7 +409,7 @@ Curl example:
             
 
 ## New Distance Receipt [/mobile/add/distance]
-### Add a new Receipt representing a receipt for milage/distance [POST]
+### Add a new Receipt representing a receipt for milage/distance [PUT]
 
 
 This resource has the following attributes
@@ -427,7 +427,7 @@ This resource has the following attributes
 Curl example:
 
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Time worked on project xyz","description":"Working really hard on this", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP", "units":"KILOMETERS","distance":"589", "distanceRate":"55.50"}'   https://hikalu.com/mobile/add/time`
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"Time worked on project xyz","description":"Working really hard on this", "tags": "tag1, tag 2, tag - 5", "created":"2014-07-11T09:04:56.123", "ccy":"GBP", "units":"KILOMETERS","distance":"589", "distanceRate":"55.50"}'   https://hikalu.com/mobile/add/distance`
 
 
 
