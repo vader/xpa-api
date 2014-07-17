@@ -1490,4 +1490,718 @@ Curl examples:
 + Response 200 (application/json)
         
 
-              
+# Group Data
+Reference data
+
+## Retreive all currencies [/data/currencies]
+### Retreive all currencies [GET]  
+Curl examples
+
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X GET https://hikalu.com/data/currencies`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+              {
+                "id": 1,
+                "code": "AED",
+                "name": "UAE Dirham",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 2,
+                "code": "AFN",
+                "name": "Afghani",
+                "symbol": "\u060b",
+                "euro": false
+              },
+              {
+                "id": 3,
+                "code": "ALL",
+                "name": "Lek",
+                "symbol": "Lek",
+                "euro": false
+              },
+              {
+                "id": 4,
+                "code": "AMD",
+                "name": "Armenian Dram",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 5,
+                "code": "ANG",
+                "name": "Netherlands Antillean Guilder",
+                "symbol": "\u0192",
+                "euro": false
+              },
+              {
+                "id": 15,
+                "code": "BHD",
+                "name": "Bahraini Dinar",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 16,
+                "code": "BIF",
+                "name": "Burundi Franc",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 17,
+                "code": "BMD",
+                "name": "Bermudian Dollar",
+                "symbol": "$",
+                "euro": false
+              },
+              {
+                "id": 18,
+                "code": "BND",
+                "name": "Brunei Dollar",
+                "symbol": "$",
+                "euro": false
+              },
+              {
+                "id": 19,
+                "code": "BOB",
+                "name": "Boliviano",
+                "symbol": "$b",
+                "euro": false
+              },
+              {
+                "id": 20,
+                "code": "BOV",
+                "name": "Mvdol",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 21,
+                "code": "BRL",
+                "name": "Brazilian Real",
+                "symbol": "R$",
+                "euro": false
+              },
+              {
+                "id": 22,
+                "code": "BSD",
+                "name": "Bahamian Dollar",
+                "symbol": "$",
+                "euro": false
+              },
+              {
+                "id": 23,
+                "code": "BTN",
+                "name": "Ngultrum",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 24,
+                "code": "BWP",
+                "name": "Pula",
+                "symbol": "P",
+                "euro": false
+              },
+              {
+                "id": 25,
+                "code": "BYR",
+                "name": "Belarussian Ruble",
+                "symbol": "p.",
+                "euro": false
+              },
+              {
+                "id": 26,
+                "code": "BZD",
+                "name": "Belize Dollar",
+                "symbol": "BZ$",
+                "euro": false
+              },
+              {
+                "id": 27,
+                "code": "CAD",
+                "name": "Canadian Dollar",
+                "symbol": "$",
+                "euro": false
+              },
+              {
+                "id": 28,
+                "code": "CDF",
+                "name": "Congolese Franc",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 29,
+                "code": "CHE",
+                "name": "WIR Euro",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 30,
+                "code": "CHF",
+                "name": "Swiss Franc",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 31,
+                "code": "CHW",
+                "name": "WIR Franc",
+                "symbol": "",
+                "euro": false
+              },
+              {
+                "id": 44,
+                "code": "DOP",
+                "name": "Dominican Peso",
+                "symbol": "RD$",
+                "euro": false
+              }
+            ]
+            
+
+## Retreive all countries [/data/countries]
+### Retreive all valid countries [GET] 
+Curl examples
+
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X GET https://hikalu.com/data/countries`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                "id": 2,
+                "code": "AE",
+                "nameEn": "United Arab Emirates",
+                "nameFr": "\u00c9mirats arabes unis",
+                "currencyId": 1,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 1,
+                  "code": "AED",
+                  "name": "UAE Dirham",
+                  "symbol": "",
+                  "euro": false
+                }
+                },
+                {
+                "id": 13,
+                "code": "AU",
+                "nameEn": "Australia",
+                "nameFr": "Australie",
+                "currencyId": 8,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 8,
+                  "code": "AUD",
+                  "name": "Australian Dollar",
+                  "symbol": "$",
+                  "euro": false
+                }
+                },
+                {
+                "id": 35,
+                "code": "BW",
+                "nameEn": "Botswana",
+                "nameFr": "Botswana",
+                "currencyId": 24,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 24,
+                  "code": "BWP",
+                  "name": "Pula",
+                  "symbol": "P",
+                  "euro": false
+                }
+                },
+                {
+                "id": 68,
+                "code": "ES",
+                "nameEn": "Spain",
+                "nameFr": "Espagne",
+                "currencyId": 49,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 49,
+                  "code": "EUR",
+                  "name": "Euro",
+                  "symbol": "\u20ac",
+                  "euro": true
+                }
+                },
+                {
+                "id": 75,
+                "code": "FR",
+                "nameEn": "France",
+                "nameFr": "France",
+                "currencyId": 49,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 49,
+                  "code": "EUR",
+                  "name": "Euro",
+                  "symbol": "\u20ac",
+                  "euro": true
+                }
+                },
+                {
+                "id": 77,
+                "code": "GB",
+                "nameEn": "United Kingdom",
+                "nameFr": "Royaume-Uni",
+                "currencyId": 52,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 52,
+                  "code": "GBP",
+                  "name": "Pound Sterling",
+                  "symbol": "\u00a3",
+                  "euro": false
+                }
+                },
+                {
+                "id": 95,
+                "code": "HK",
+                "nameEn": "Hong Kong",
+                "nameFr": "Hong Kong",
+                "currencyId": 60,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 60,
+                  "code": "HKD",
+                  "name": "Hong Kong Dollar",
+                  "symbol": "$",
+                  "euro": false
+                }
+                },
+                {
+                "id": 105,
+                "code": "IN",
+                "nameEn": "India",
+                "nameFr": "Inde",
+                "currencyId": 67,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 67,
+                  "code": "INR",
+                  "name": "Indian Rupee",
+                  "symbol": "",
+                  "euro": false
+                }
+                },
+                {
+                "id": 110,
+                "code": "IT",
+                "nameEn": "Italy",
+                "nameFr": "Italie",
+                "currencyId": 49,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 49,
+                  "code": "EUR",
+                  "name": "Euro",
+                  "symbol": "\u20ac",
+                  "euro": true
+                }
+                },
+                {
+                "id": 111,
+                "code": "JE",
+                "nameEn": "Jersey",
+                "nameFr": "Jersey",
+                "currencyId": 52,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 52,
+                  "code": "GBP",
+                  "name": "Pound Sterling",
+                  "symbol": "\u00a3",
+                  "euro": false
+                }
+                },
+                {
+                "id": 166,
+                "code": "NL",
+                "nameEn": "The Netherlands",
+                "nameFr": "Pays-Bas",
+                "currencyId": 49,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 49,
+                  "code": "EUR",
+                  "name": "Euro",
+                  "symbol": "\u20ac",
+                  "euro": true
+                }
+                },
+                {
+                "id": 171,
+                "code": "NZ",
+                "nameEn": "New Zealand",
+                "nameFr": "Nouvelle-Z\u00e9lande",
+                "currencyId": 110,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 110,
+                  "code": "NZD",
+                  "name": "New Zealand Dollar",
+                  "symbol": "$",
+                  "euro": false
+                }
+                },
+                {
+                "id": 189,
+                "code": "RO",
+                "nameEn": "Romania",
+                "nameFr": "Roumanie",
+                "currencyId": 120,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 120,
+                  "code": "RON",
+                  "name": "New Romanian Leu",
+                  "symbol": "lei",
+                  "euro": false
+                }
+                },
+                {
+                "id": 198,
+                "code": "SG",
+                "nameEn": "Singapore",
+                "nameFr": "Singapour",
+                "currencyId": 129,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 129,
+                  "code": "SGD",
+                  "name": "Singapore Dollar",
+                  "symbol": "$",
+                  "euro": false
+                }
+                },
+                {
+                "id": 233,
+                "code": "US",
+                "nameEn": "United States",
+                "nameFr": "\u00c9tats-Unis",
+                "currencyId": 152,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 152,
+                  "code": "USS",
+                  "name": "US Dollar (Same day)",
+                  "symbol": "",
+                  "euro": false
+                }
+                },
+                {
+                "id": 244,
+                "code": "WS",
+                "nameEn": "Samoa",
+                "nameFr": "Samoa",
+                "currencyId": 159,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 159,
+                  "code": "WST",
+                  "name": "Tala",
+                  "symbol": "",
+                  "euro": false
+                }
+                },
+                {
+                "id": 247,
+                "code": "ZA",
+                "nameEn": "South Africa",
+                "nameFr": "Afrique du Sud",
+                "currencyId": 178,
+                "supported": true,
+                "taxYear": [
+                  
+                ],
+                "valid": true,
+                "currency": {
+                  "id": 178,
+                  "code": "ZAR",
+                  "name": "Rand",
+                  "symbol": "R",
+                  "euro": false
+                }
+                }
+                ]
+
+## Retreive all rates [/data/rates]
+### Retreive all rates [GET] 
+Curl examples
+
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X GET https://hikalu.com/data/rates`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "DateTime": "1405596607",
+              "USD": "1",
+              "AED": "3.673\r",
+              "AFN": "56.12\r",
+              "ALB": "103.58\r",
+              "AMD": "407.19\r",
+              "ANG": "1.79\r",
+              "AOA": "96.96\r",
+              "ARS": "8.1476\r",
+              "AUD": "1.0666\r",
+              "AWG": "1.7898\r",
+              "AZN": "0.7843\r",
+              "BAM": "1.4489\r",
+              "BBD": "2.00\r",
+              "BDT": "77.59\r",
+              "BGN": "1.446\r",
+              "BHD": "0.377\r",
+              "BIF": "1520.00\r",
+              "BMD": "1.00\r",
+              "BND": "1.2409\r",
+              "BOB": "6.91\r",
+              "BRL": "2.2123\r",
+              "BSD": "1.00\r",
+              "BTN": "60.13\r",
+              "BWP": "8.8574\r",
+              "BYR": "10265.00\r",
+              "BZD": "1.995\r",
+              "CAD": "1.0748\r",
+              "CDF": "924.00\r",
+              "CHF": "0.8979\r",
+              "CLF": "0.0233\r",
+              "CLP": "559.36\r",
+              "CNY": "6.2045\r",
+              "COP": "1865.50\r",
+              "CRC": "548.50\r",
+              "CUP": "1.00\r",
+              "CVE": "80.49\r",
+              "CZK": "20.283\r",
+              "DJF": "181.20\r",
+              "DKK": "5.5122\r",
+              "DOP": "43.30\r",
+              "DZD": "79.505\r",
+              "EGP": "7.1497\r",
+              "ETB": "19.7355\r",
+              "EUR": "0.7392\r",
+              "FJD": "1.8159\r",
+              "FKP": "0.5842\r",
+              "GBP": "0.5846\r",
+              "GEL": "1.7542\r",
+              "GHS": "3.3595\r",
+              "GIP": "0.5842\r",
+              "GMD": "39.60\r",
+              "GNF": "7050.00\r",
+              "GTQ": "7.7465\r",
+              "GYD": "208.45\r",
+              "HKD": "7.751\r",
+              "HNL": "20.9569\r",
+              "HRK": "5.6319\r",
+              "HTG": "45.3209\r",
+              "HUF": "229.505\r",
+              "IDR": "11686.00\r",
+              "IEP": "0.5821\r",
+              "ILS": "3.41\r",
+              "INR": "60.1755\r",
+              "IQD": "1163.80\r",
+              "IRR": "26025.00\r",
+              "ISK": "114.50\r",
+              "JMD": "112.28\r",
+              "JOD": "0.7086\r",
+              "JPY": "101.4525\r",
+              "KES": "87.70\r",
+              "KGS": "51.6714\r",
+              "KHR": "4045.00\r",
+              "KMF": "363.6529\r",
+              "KPW": "900.00\r",
+              "KRW": "1028.6851\r",
+              "KWD": "0.2823\r",
+              "KZT": "183.51\r",
+              "LAK": "8054.50\r",
+              "LBP": "1512.50\r",
+              "LKR": "130.27\r",
+              "LRD": "91.50\r",
+              "LSL": "10.68\r",
+              "LTL": "2.5523\r",
+              "LVL": "0.5193\r",
+              "LYD": "1.2375\r",
+              "MAD": "8.2744\r",
+              "MDL": "13.985\r",
+              "MGA": "2410.00\r",
+              "MKD": "45.475\r",
+              "MMK": "972.00\r",
+              "MNT": "1833.88\r",
+              "MOP": "7.9835\r",
+              "MRO": "290.90\r",
+              "MUR": "30.40\r",
+              "MVR": "15.39\r",
+              "MWK": "395.78\r",
+              "MXN": "12.9415\r",
+              "MYR": "3.1765\r",
+              "MZN": "30.90\r",
+              "NAD": "10.669\r",
+              "NGN": "161.83\r",
+              "NIO": "26.015\r",
+              "NOK": "6.1975\r",
+              "NPR": "97.32\r",
+              "NZD": "1.1513\r",
+              "OMR": "0.385\r",
+              "PAB": "1.00\r",
+              "PEN": "2.789\r",
+              "PGK": "2.4399\r",
+              "PHP": "43.54\r",
+              "PKR": "98.83\r",
+              "PLN": "3.0619\r",
+              "PYG": "4193.0698\r",
+              "QAR": "3.6406\r",
+              "RON": "3.2845\r",
+              "RSD": "85.8705\r",
+              "RUB": "34.988\r",
+              "RWF": "680.50\r",
+              "SAR": "3.7503\r",
+              "SBD": "7.2209\r",
+              "SCR": "12.2036\r",
+              "SDG": "5.6942\r",
+              "SEK": "6.8298\r",
+              "SGD": "1.2415\r",
+              "SHP": "0.5842\r",
+              "SLL": "4340.00\r",
+              "SOS": "945.00\r",
+              "SRD": "3.275\r",
+              "STD": "18030.00\r",
+              "SVC": "8.747\r",
+              "SYP": "149.70\r",
+              "SZL": "10.6825\r",
+              "THB": "32.16\r",
+              "TJS": "4.941\r",
+              "TMT": "2.85\r",
+              "TND": "1.7182\r",
+              "TOP": "1.8404\r",
+              "TRY": "2.1236\r",
+              "TTD": "6.3699\r",
+              "TWD": "29.985\r",
+              "TZS": "1658.50\r",
+              "UAH": "11.723\r",
+              "UGX": "2627.00\r",
+              "UYU": "22.90\r",
+              "UZS": "2324.1001\r",
+              "VEF": "6.2925\r",
+              "VND": "21175.00\r",
+              "VUV": "93.55\r",
+              "WST": "2.2965\r",
+              "XAF": "484.8705\r",
+              "XCD": "2.70\r",
+              "XDR": "0.6488\r",
+              "XOF": "485.35\r",
+              "XPF": "88.70\r",
+              "YER": "214.855\r",
+              "ZAR": "10.7147\r",
+              "ZMK": "5189.50\r",
+              "ZWL": "322.355\r"
+            }
