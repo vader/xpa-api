@@ -598,6 +598,7 @@ Receipt type can be the following values
 This resource has the following attributes
 
 - `from` (Required in date format )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
+- `includeAttached` (Optional defaults to true)  Include receipts that are already attached to reports. (false if you want to attach receipt to report as the receipt can only be attached to one report)
 - `to`  (optional) DateTime format required "2013-03-30T09:04:56.123" If provided will search between two dates. If not provided will search from the from date to the current date
 - `limit` (optional) the amount of results to limit. If not provided defaults to system default
 
