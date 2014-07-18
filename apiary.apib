@@ -1462,17 +1462,16 @@ Report can be emailed
 
 This resource has the following attributes
 
-- `id` (Required in date format )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
-- `to`  (Required) DateTime format required "2013-03-30T09:04:56.123" If provided will search between two dates. If not provided will search from the from date to the current date
-- `from` (Optional )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
-- `copy`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
-- `cc`  (Optional) case sensitive (INVOICE, EXPENSE)
-- `memo` (optional) the amount of results to limit. If not provided defaults to system default
+- `to`  (Required) to email address of who we are sending the report to
+- `from` (Optional )  If you want a different from to the address registered on the users account
+- `copy`  (Optional) True or False, does the user want to be coppied onto the email i.e sent a copy of the email
+- `cc`  (Optional) Any other email addresses to cc the email to
+- `memo` (optional) Notes which will appear as text on the email
 
 
 Curl examples:
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X GET -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}'  https://hikalu.com/mobile/report`
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X GET -H "Content-Type: application/json" -d '{"to":"svader@gmail.com","from":"svader@gmail.com", "memo":"Pay me now!"}'  https://hikalu.com/report/email/2`
 
 
 + Parameters
