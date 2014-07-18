@@ -1455,6 +1455,49 @@ Curl example:
             {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
             
             
+## Email report [/report/email/{id}]
+### Email report [POST]    
+
+Report can be emailed 
+
+This resource has the following attributes
+
+- `id` (Required in date format )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
+- `to`  (Required) DateTime format required "2013-03-30T09:04:56.123" If provided will search between two dates. If not provided will search from the from date to the current date
+- `from` (Optional )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
+- `copy`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
+- `cc`  (Optional) case sensitive (INVOICE, EXPENSE)
+- `memo` (optional) the amount of results to limit. If not provided defaults to system default
+
+
+Curl examples:
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X GET -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}'  https://hikalu.com/mobile/report`
+
+
++ Parameters
+    + id (string, required, `numerice value representing a long`) ... The id of the `user` to retrieve
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    + Body
+
+            {
+                "name": "Lunch at Harrods",
+                "description": "Met with Ahmad to discuss the terms of the contract",
+                "amount": "55.56",
+                "ccy": "GBP",
+                "tags": "lunch, entertainment, project dark star"
+            }
+        
++ Response 200 (application/json)
+        
+
 ## Search reports [/mobile/report]
 ### Search for reports [GET]    
 
@@ -1492,6 +1535,9 @@ Curl examples:
         
 + Response 200 (application/json)
         
+
+
+
 
 # Group Data
 Reference data
