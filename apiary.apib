@@ -53,7 +53,7 @@ Curl example:
         {
             "firstName": "Darth",
             "lastName": "Vader",
-            "email": "admin@adis-ltd.co.uk",
+            "email": "shawn@expensepa.com",
             "password": "password123",
             "ccy": "GBP",
             "cc": "GB",
@@ -73,7 +73,7 @@ Curl example:
     + Body
      
             {
-                "message":"Successfully registered user admin@adis-ltd.co.uk",
+                "message":"Successfully registered user shawn@expensepa.com",
                 "id":21,
                 "session":"e81aca03e0decf8174c166265a0afe602e99b8f19057970fa6a03c191b628c7a1f0991c52d3b04a07a1c937019f46d68ccd3787240b52f54768db5969a4b9cfb768f7c3c78359af4e56779b640ebc86cbe1a373cd79524f3"
             }
@@ -89,7 +89,7 @@ Logout for all users
 
 Curl Example:
 
-`curl -c cookies.txt -k --insecure -X POST  -H "Content-Type: application/json" -d  '{"username":"admin@adis-ltd.co.uk", "password":"password123"}'   https://hikalu.com/mobile/login/userpass`
+`curl -c cookies.txt -k --insecure -X POST  -H "Content-Type: application/json" -d  '{"username":"shawn@expensepa.com", "password":"password123"}'   https://hikalu.com/mobile/login/userpass`
 
 
 ### Login using username and password [POST]
@@ -97,7 +97,7 @@ Curl Example:
 + Request
     
         {
-            {"username":"admin@adis-ltd.co.uk", "password":"password123"}'
+            {"username":"shawn@expensepa.com", "password":"password123"}'
         }
     
 + Response 200 (application/json)
@@ -215,7 +215,7 @@ Curl example:
                 "id": "23",
                 "firstName": "Darth",
                 "lastName": "Vader",
-                "email": "admin@adis-ltd.co.uk",
+                "email": "shawn@expensepa.com",
                 "password": "password123",
                 "ccy": "GBP",
                 "cc": "GB",
@@ -1327,7 +1327,7 @@ Curl example:
             {
                 "name": "Invoice",
                 "type": "invoice",
-                "fromEmail": "admin@adis-ltd.co.uk",
+                "fromEmail": "shawn@expensepa.com",
                 "discount": "100",
                 "ccy": "GBP",
                 "receiptIds": "1,11,25",
