@@ -2221,6 +2221,7 @@ Curl examples
 # Group Notifications
 Notifications data
 
+
 ## Retreive all notifications [/mobile/notifications/{notification type}]
 ### Retreive all notifications [GET]  
 Returns all the Notifications
@@ -2294,4 +2295,78 @@ Curl examples
                 }
             ]
     
+
+## Update notification to read [/mobile/notifications/read/{id}]
+### Update notification to read [POST]  
+Returns all the Notifications
+
+Curl examples
+
+
+`curl -b cookies.txt -c cookies.txt -k --insecure -X POST  https://hikalu.com/mobile/notifications/read/21  | python -m json.tool`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+
+
++ Response 404 (application/json)
+
+            {
+                "message": "notification for id=2 not found for user=LocalUser id=41, name=Shawn, lastName=Vader, email=shawn@expensepa.com, enabled=true, verified=false"
+            }
+            
+            
++ Response 200 (application/json)
+
+    + Body          
     
+    
+            {
+                "message": "Successfully updated notification id=21 for user=LocalUser id=41, name=Shawn, lastName=Vader, email=shawn@expensepa.com, enabled=true, verified=false to read"
+            }
+
+## Update notifications to read [/mobile/notifications/read]
+### Update notifications to read [POST]  
+Returns all the Notifications
+
+This resource has the following attributes
+
+- `ids`  (Required) comma separated list of ids
+
+
+Curl examples
+
+
+`curl -b cookies.txt -c cookies.txt -k --insecure -X POST  https://hikalu.com/mobile/notifications/read  | python -m json.tool`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+
+
++ Response 404 (application/json)
+
+            {
+                "message":"Expecting comma separated list of ids in parameter 'ids'"
+            }
+            
+            
++ Response 200 (application/json)
+
+    + Body          
+    
+    
+            {
+                "message":"Successfully updated notifications Updated the following notifications - 21 41  for user=LocalUser id=41, name=Shawn, lastName=Vader, email=shawn@expensepa.com, enabled=true, verified=false "
+            }
+
+        
