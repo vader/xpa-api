@@ -2216,3 +2216,29 @@ Curl examples
               "ZMK": "5189.50\r",
               "ZWL": "322.355\r"
             }
+            
+
+# Group Notifications
+Notifications data
+
+## Retreive all notifications [/mobile/notifications]
+### Retreive all notifications [GET]  
+Returns all the Notifications
+
+Curl examples
+
+
+`curl -b cookies.txt -c cookies.txt -k --insecure -X GET -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"2"}' https://hikalu.com/mobile/notifications  | python -m json.tool`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+
+
++ Response 200 (application/json)
+
+    + Body            
