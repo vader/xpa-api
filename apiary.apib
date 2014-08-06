@@ -1283,6 +1283,42 @@ Curl examples:
           }
         ]
 
+## Poll Receipts [/ajax/receipts/{time} ]
+### Poll for receipts [GET]    
+
++ Parameters
+    + time (long, required, `numerice value representing a long time since`) ... Get all the receipts since the time
+
++ Request (application/json)
+
+    + Header
+
+            Set-Cookie: xpa-dev=7291d2e466a8ab2f8e5b2e9af272839d13909690acef9551088ed8c574f97c7bafec62a878ac7ceecc5d6a262528b2889e4fd77438dbfd9ad205220f10162fee55fb41229e8ad73d66975cd123f22f2ffb3268031e4c4e59; Expires=Tue, 15 Jul 2014 21:58:57 GMT; Path=/; Secure; HTTPOnly
+
++ Response 200 (application/json)
+         
+           {
+                "1": {
+                    "url": "/receipts#/ajax/receipts/edit/61",
+                    "name": "todelete",
+                    "id": 61,
+                    "timestamp": 1407254741224
+                },
+                "2": {
+                    "url": "/receipts#/ajax/receipts/edit/27",
+                    "name": "second",
+                    "id": 27,
+                    "timestamp": 1406738113161
+                },
+                "3": {
+                    "url": "/receipts#/ajax/receipts/edit/26",
+                    "name": "first",
+                    "id": 26,
+                    "timestamp": 1406738091989
+                }
+            }
+
+
 
 
 # Group Report
