@@ -1349,8 +1349,6 @@ Curl example:
 
 `curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Second Mobile Invoice report","date":"2013-03-30T09:04:56.123", "discount":"100.00", "ccy": "GBP", "receiptIds" : "1,21", "reportType":"INVOICE", "reportStatus":"OPEN"}' https://hikalu.com/mobile/report`
 
-`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100", "reportStatus":"OPEN", "reportType":"EXPENSE"}' https://hikalu.com/mobile/report`
-
 
 + Request (application/json)
 
@@ -1550,7 +1548,10 @@ This resource has the following attributes
 
 Curl examples:
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X GET -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}'  https://hikalu.com/mobile/report`
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}'  https://hikalu.com/mobile/report`
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100", "reportStatus":"OPEN", "reportType":"EXPENSE"}' https://hikalu.com/mobile/report`
+
 
 + Request (application/json)
 
