@@ -1532,7 +1532,7 @@ Curl examples:
         
 
 ## Search reports [/mobile/report]
-### Search for reports [GET]    
+### Search for reports [POST]    
 
 Receipt type can be the following values
 
@@ -1552,6 +1552,7 @@ Curl examples:
 
 `curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100", "reportStatus":"OPEN", "reportType":"EXPENSE"}' https://hikalu.com/mobile/report`
 
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}' https://hikalu.com/mobile/report | grep { | python -mjson.tool`
 
 + Request (application/json)
 
