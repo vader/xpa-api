@@ -1710,7 +1710,7 @@ Curl example:
 + Response 200 (application/json)
 
         {
-          "message": "Successfully deleted expense report id=61"
+          "message": "Successfully deleted expense report id=100"
         }
 
 + Response 404 (application/json)
@@ -1724,77 +1724,59 @@ Curl example:
         {
           "message": "Unable to delete resource with status=submitted"
         }
+        
+## Email report [/mobile/report/email/{reportType}/{id}]
+### Email report [POST]    
 
-
-## Update Report [/mobile/report/{reportType}/{id}]
-### Update report [POST]
-
-
-Receipt type can be the following values
-
-
-- `reportType` invoice
-- `reportType` expense
-
-
+Report can be emailed 
 
 This resource has the following attributes
 
-
-- `name` (Optional) name of the receipt
-- `type`  (Optional) the type of the report values are (invoice expense)
-- `reportStatus`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
-- `reportType`  (Optional) case sensitive (INVOICE, EXPENSE)
-- `date` (Optional)  date in the datetime format "2013-03-30T09:04:56.123"
-- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
-- `discount` (Optional) Numberic discount amount
-- `receiptIds` (Optional) comma seperated list of receitp ids to attach to the report. Important, if you are adding a receipt you need to provide all the receipt ids
-- `notes` (Optional) Notes attached to the report
-- `fromEmail` (Optional) if different from the users email
-- `toEmail` (Optional) who this report is going to be sent to
-- `contactInfo` (Optional) if not provide the default from user will be used
+- `to`  (Required) to email address of who we are sending the report to
+- `from` (Optional )  If you want a different from to the address registered on the users account
+- `copy`  (Optional) True or False, does the user want to be coppied onto the email i.e sent a copy of the email
+- `cc`  (Optional) Any other email addresses to cc the email to
+- `memo` (optional) Notes which will appear as text on the email
 
 
-Curl example:
+Curl examples:
+
+`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"to":"svader@gmail.com","from":"svader@gmail.com", "memo":"Pay me now!"}'  https://hikalu.com/mobile/report/email/2`
 
 
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{ "name":"Changrom a mobile device","amount":"55.21", "tags":"new45555"}'   https://hilalu.com/mobile/receipt/update/receipt/44`
++ Parameters
+    + id (string, required, `numerice value representing a long`) ... The id of the `user` to retrieve
+    + reportType (string, required, `string value representing reportType`, values 'EXPENSE') The only valid value is EXPENSE
 
 
 + Request (application/json)
 
-        {
-            "name": "Lunch at Harrods",
-            "description": "Met with Ahmad to discuss the terms of the contract",
-            "amount": "55.56",
-            "ccy": "GBP",
-            "tags": "lunch, entertainment, project dark star"
-        }
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
 
-+ Response 200 (application/json)
-
-           {
-               "message":"Successfully updated report name=Changed report name",
-               "id":"ed0777e2-aea5-469e-a57b-ef65da919288",
-               "reportId":25
-           }
-        
-
-+ Response 404 (application/json)
+    + Body
 
             {
-                "message":"Receipt id=9999 not found""
+                "to":"svader@gmail.com",
+                "from":"svader@gmail.com", 
+                "memo":"Pay me now!"
+            }
+        
++ Response 200 (application/json)
+
+
+            {
+                message: "Successfully emailed expense report"
             }
             
 
-+ Response 400 (application/json)
-
-            {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
-            
+## Update Report [/mobile/report/{reportType}/{id}]
+### Update report [POST]  TODO
 
 
 
-# Group Data
+# Reference Data
 Reference data
 
 ## Retreive all currencies [/data/currencies]
