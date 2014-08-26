@@ -1684,7 +1684,7 @@ Curl example:
 
             {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
 
-## Delete a Report [/mobile/report/{reportId}]
+## Delete an Expense Report [/mobile/report/{reportType}/{reportId}]
 ### Delete Report API [DELETE]
 
 If the report has invoices attached these will be unattached. 
@@ -1697,6 +1697,7 @@ Curl example:
 
 + Parameters
     + reportId (long, required, `numerice value representing a long`) ... The id of the `report` to delete
+    + reportType (string, required, `string value representing reportType`, values 'EXPENSE') The only valid value is EXPENSE
 
 
 + Request 
@@ -1709,7 +1710,7 @@ Curl example:
 + Response 200 (application/json)
 
         {
-          "message": "Successfully deleted report id=61"
+          "message": "Successfully deleted expense report id=61"
         }
 
 + Response 404 (application/json)
