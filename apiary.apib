@@ -1616,7 +1616,8 @@ Curl examples:
 
 
 # Group Expense Report
-Report related resources of the **Receipt API**
+Report related resources of the **Receipt API** <br />
+Example Rest calls for Postman https://www.getpostman.com/collections/247156b20866ffe056da
 
 ## Create new Expense Report [/mobile/report/{reportType}]
 ### Create new Expense Report API [POST]
@@ -1625,24 +1626,23 @@ Report related resources of the **Receipt API**
 This resource has the following attributes
 
 - `name` (Required) name of the report
-- `type` (Required) the type of the report values are (invoice expense)
+- `from` (Required) date the report is from in the datetime format "2013-03-30"
+- `to` (Required) date the report is to in the datetime format "2014-03-30"
 - `reportStatus`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
-- `reportType`  (Optional) case sensitive (INVOICE, EXPENSE)
-- `date` (Optional) date in the datetime format "2013-03-30T09:04:56.123"
-- `discount` (Optional) Numberic discount amount
+- `date` (Optional) date the report is created in the datetime format "2013-03-30T09:04:56.123" will default to now
+- `advance` (Optional) Numberic advance amount
+- `costCenter` (Optional) If not provided will look in the users profile for the default value
+- `employeeId` (Optional) If not provided will look in the users profile for the default value
+- `employeeCompany` (Optional) If not provided will look in the users profile for the default value
 - `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
 - `receiptIds` (Optional) comma seperated list of receitp ids to attach to the report
 - `notes` (Optional) Notes attached to the report
-- `fromEmail` (Optional) if different from the users email
-- `toEmail` (Optional) who this report is going to be sent to
-- `contactInfo` (Optional) if not provide the default from user will be used
-
 
 
 Curl example: 
 
 
-`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"name":"Second Mobile Invoice report","date":"2013-03-30T09:04:56.123", "discount":"100.00", "ccy": "GBP", "receiptIds" : "1,21", "reportType":"INVOICE", "reportStatus":"OPEN"}' https://hikalu.com/mobile/report`
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"Second Mobile Invoice report", "date":"2013-03-30", "from":"2014-03-30", "to":"2014-04-30", "discount":"100.00", "ccy":"GBP", "receiptIds":"6,7", "reportStatus":"OPEN", "advance":"100.00", "costCenter":"33398-9909-99", "employeeId":"EMP-8898-JJK"}' https://hikalu.com/mobile/report/EXPENSE`
 
 + Parameters
     + reportType (string, required, `string value representing an enum`) ... Valid value IS "EXPENSE"
@@ -1657,23 +1657,27 @@ Curl example:
     + Body
 
             {
-                "name": "Invoice",
-                "type": "invoice",
-                "fromEmail": "shawn@expensepa.com",
-                "discount": "100",
-                "ccy": "GBP",
-                "receiptIds": "1,11,25",
-                "notes": "Please settle this invoice by the required time",
-                "vat": "20"
+                "name":"fiskl expense 2", 
+                "date":"2013-03-30", 
+                "from":"2014-03-30", 
+                "to":"2014-04-30", 
+                "discount":"100.00", 
+                "ccy":"GBP", 
+                "reportStatus":"OPEN", 
+                "advance":"100.00", 
+                "costCenter":"33398-9909-99", 
+                "employeeId":"EMP-8898-JJK",
+                "employeeCompany":"fiskl inc",
+                "receiptIds":"13",
+                "notes":"Some notes to be added to the report"
             }
 
 + Response 200 (application/json)
 
-        {
-          "message": "Successfully created report Invoice",
-          "id":"0e8a4dae-4866-4c94-998c-541cd4910a5f",
-          "reportId":1
-        }
+            {
+                message: "Successfully created report name=fiskl expense 2"
+                id: 44
+            }
         
         
 + Response 400 (application/json)
