@@ -1283,6 +1283,63 @@ Curl examples:
           }
         ]
 
+
+## Search Time/Distance/Quote Receipts [/mobile/receipts/{receiptType}]
+### Search for Time/Distance/Quote Receipts [POST]    
+
+Receipt type can be the following values
+
+
+- `receiptType` quote
+- `receiptType` time
+- `receiptType` distance
+- `receiptType` all
+
+This resource has the following attributes
+
+- `from` (Required in date format )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
+- `to`  (optional) DateTime format required "2013-03-30T09:04:56.123" If provided will search between two dates. If not provided will search from the from date to the current date
+- `state` (optional) The state of the receipt. Valid values are new, deleted, approved, rejected, pending, submitted, saved. If none provided everything apart from deleted is searched for. To search for deleted you need to explicity search have delted
+- `limit` (optional) the amount of results to limit. If not provided defaults to system default
+
+
+Curl examples:
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30", "limit":"100"}' https://hikalu.com/mobile/receipts/distance`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    + Body
+
+            {
+                "from": "2013-03-30",
+                "limit": "50"
+            }
+        
++ Response 200 (application/json)
+        
+            {
+                -1: {
+                    id: 62
+                    name: "First Distance"
+                    created: "28-Aug-2014"
+                    currency: "USD"
+                    total: 490
+                    state: "Saved"
+                    type: "Distance"
+                    notes: " sdfsafdsa"
+                    tags: "Travel"
+                    timestamp: 1409245251824
+                }
+            }
+
+
+
 ## Poll Receipts [/ajax/receipts/{time} ]
 ### Poll Receipts [GET]    
 
