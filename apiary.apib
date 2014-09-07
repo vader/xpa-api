@@ -1378,11 +1378,11 @@ Curl examples:
 
 
 
-# Group Invoice Report
+# Group Invoice
 Report related resources of the **Receipt API**
 
-## Create new Invoice Report [/mobile/report]
-### Create new Invoice Report API [PUT]
+## Create new Invoice [/mobile/report]
+### Create new Invoice API [PUT]
 
 
 This resource has the following attributes
@@ -1439,8 +1439,8 @@ Curl example:
 
             {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
 
-## Delete a Report [/mobile/report/{reportId}]
-### Delete Report API [DELETE]
+## Delete an Invoice [/mobile/report/{reportId}]
+### Delete Invpoce API [DELETE]
 
 If the report has invoices attached these will be unattached. 
 You can not delete the report if its been submitted
@@ -1480,8 +1480,8 @@ Curl example:
         }
 
 
-## Update Report [/mobile/report/{reportType}/{id}]
-### Update report [POST]
+## Update Invoice [/mobile/report/{reportType}/{id}]
+### Update Invoice [POST]
 
 
 Receipt type can be the following values
@@ -1546,8 +1546,8 @@ Curl example:
             {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
             
             
-## Email report [/mobile/report/email/{id}]
-### Email report [POST]    
+## Email invoice [/mobile/report/email/{id}]
+### Email invoice [POST]    
 
 Report can be emailed 
 
@@ -1586,30 +1586,16 @@ Curl examples:
             }
         
 + Response 200 (application/json)
-        
+        https://hikalu.com/mobile/report/invoice/0/2
 
-## Search reports [/mobile/report]
+## Search invoices [/mobile/report/{reportType}/{from}/{itemsPerPage}]
 ### Search for reports [POST]    
 
-Receipt type can be the following values
++ Parameters
+    + reportType (string, required, `reportType valid values are invoice, quote, expense`) 
+    + from (int, required, `from page of results, normally starts in page 0`) 
+    + itemsPerPage (int, required, `the number of results to return per page`) 
 
-This resource has the following attributes
-
-
-- `from` (Required in date format )  DateTime format required "2013-03-30T09:04:56.123" The date to search from
-- `to`  (optional) DateTime format required "2013-03-30T09:04:56.123" If provided will search between two dates. If not provided will search from the from date to the current date
-- `reportStatus`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
-- `reportType`  (Optional) case sensitive (INVOICE, EXPENSE)
-- `limit` (optional) the amount of results to limit. If not provided defaults to system default
-
-
-Curl examples:
-
-`curl -b cookies.txt -c cookies.txt -i  -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}'  https://hikalu.com/mobile/report`
-
-`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100", "reportStatus":"OPEN", "reportType":"EXPENSE"}' https://hikalu.com/mobile/report`
-
-`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST -H "Content-Type: application/json" -d '{"from":"2013-03-30T09:04:56.123", "limit":"100"}' https://hikalu.com/mobile/report | grep { | python -mjson.tool`
 
 + Request (application/json)
 
@@ -1617,17 +1603,49 @@ Curl examples:
      
             Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
 
-    + Body
-
-            {
-                "name": "Lunch at Harrods",
-                "description": "Met with Ahmad to discuss the terms of the contract",
-                "amount": "55.56",
-                "ccy": "GBP",
-                "tags": "lunch, entertainment, project dark star"
-            }
         
 + Response 200 (application/json)
+
+            {
+                -metadata: {
+                total: 3
+                limit: 2
+                remainingPages: 0
+                remaining: 1
+                next: /mobile/report/invoice/2/1
+                }
+                -results: [
+                    -{
+                    id: 133
+                    name: "Lunch with RBS"
+                    created: "30-Mar-2013"
+                    currency: "GBP"
+                    total: 98
+                    state: "OPEN"
+                    type: "INVOICE"
+                    notes: null
+                    tags: ""
+                    timestamp: 1410108465953
+                    }
+                    -{
+                    id: 24
+                    name: "Trip to New York"
+                    created: "30-Mar-2013"
+                    currency: "GBP"
+                    total: 458.11
+                    state: "OPEN"
+                    type: "INVOICE"
+                    notes: null
+                    tags: ""
+                    timestamp: 1409244148866
+                    }
+                ]
+            }
+
+
+Curl examples:
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST  https://hikalu.com/mobile/report/invoice/0/5 | grep { | python -mjson.tool`
         
 
 ## Poll Reports [//ajax/reports/poll/{time} ]
