@@ -1375,7 +1375,128 @@ Curl examples:
                 }
             }
 
+# Group Quote
+Report related resources of the **Receipt API**
 
+## Create new Quote [/mobile/report]
+### Create new Quote API [PUT]
+
+
+This resource has the following attributes
+
+- `name` (Required) name of the report
+- `type` (Required) the type of the report values are (invoice expense)
+- `reportStatus`  (Optional) case sensitive (NEW, SUBMITTED, REJECTED, OPEN)
+- `reportType`  (Optional) not case sensitive (INVOICE, EXPENSE, QUOTE)
+- `date` (Optional) date in the datetime format "2013-03-30T09:04:56.123"
+- `discount` (Optional) Numberic discount amount
+- `ccy` (Optional) The currency symbol. Currently supported are 'EUR, GBP, USD'  TODO provide the client with  a list of ccy codes
+- `receiptIds` (Optional) comma seperated list of receitp ids to attach to the report
+- `notes` (Optional) Notes attached to the report
+- `fromEmail` (Optional) if different from the users email
+- `toEmail` (Optional) who this report is going to be sent to
+- `contactInfo` (Optional) if not provide the default from user will be used
+
+
+Curl example: 
+
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X PUT -H "Content-Type: application/json" -d '{"name":"Mobile Quote report","date":"2013-03-30T09:04:56.123", "discount":"100.00", "ccy": "GBP", "receiptIds" : "1,21", "reportType":"INVOICE", "reportStatus":"OPEN"}' https://hikalu.com/mobile/report`
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+    + Body
+
+            {
+                "name": "Quote for x",
+                "type": "quote",
+                "fromEmail": "shawn@expensepa.com",
+                "discount": "100",
+                "ccy": "GBP",
+                "receiptIds": "1,11,25",
+                "notes": "Quote for doing some work",
+                "vat": "20"
+            }
+
++ Response 200 (application/json)
+
+        {
+          "message": "Successfully created report Quote",
+          "id":"0e8a4dae-4866-4c94-998c-541cd4910a5f",
+          "reportId":1
+        }
+        
+        
++ Response 400 (application/json)
+
+            {"reportType":["Invalid value"],"reportStatus":["Invalid value"]}   
+
+
+
+## Search invoices [/mobile/report/{reportType}/{from}/{itemsPerPage}]
+### Search for reports [POST]    
+
++ Parameters
+    + reportType (string, required, `reportType valid values are invoice, quote, expense`) 
+    + from (int, required, `from page of results, normally starts in page 0`) 
+    + itemsPerPage (int, required, `the number of results to return per page`) 
+
+
++ Request (application/json)
+
+    + Header
+     
+            Cookie: xpa-dev=699181b8327d97058deb693a032dbbd26c96360b33c81b9e5d74d3be656e20e4c2f1a1484f00ab17bc8f89b91a51f03eb47d51ec833738c975e786eb84fac026c2b79adc3ecab51c2dd36e222454f3fe423e739044608d79
+
+        
++ Response 200 (application/json)
+
+            {
+                -metadata: {
+                total: 3
+                limit: 2
+                remainingPages: 0
+                remaining: 1
+                next: /mobile/report/invoice/2/1
+                }
+                -results: [
+                    -{
+                    id: 133
+                    name: "Lunch with RBS"
+                    created: "30-Mar-2013"
+                    currency: "GBP"
+                    total: 98
+                    state: "OPEN"
+                    type: "INVOICE"
+                    notes: null
+                    tags: ""
+                    timestamp: 1410108465953
+                    }
+                    -{
+                    id: 24
+                    name: "Trip to New York"
+                    created: "30-Mar-2013"
+                    currency: "GBP"
+                    total: 458.11
+                    state: "OPEN"
+                    type: "INVOICE"
+                    notes: null
+                    tags: ""
+                    timestamp: 1409244148866
+                    }
+                ]
+            }
+
+
+Curl examples:
+
+`curl -b cookies.txt -c cookies.txt -i -k --insecure -X POST  https://hikalu.com/mobile/report/quote/0/5 | grep { | python -mjson.tool`
+        
 
 
 # Group Invoice
